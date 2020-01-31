@@ -1,0 +1,17 @@
+{
+  "name": "328/pets3",
+  "authors": [
+    {
+      "name": "Kerrie Low",
+      "email": "klow4@mail.greenriver.edu"
+    },
+    {
+      "name": "Elijah Maret",
+      "email": "emaret2@mail.greenriver.edu"
+    }
+
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
