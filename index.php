@@ -24,6 +24,9 @@ require("vendor/autoload.php");
 //instantiate F3
 $f3 = Base::instance();
 
+//Set dubug level
+$f3->set('DEBUG', 3);
+
 // array of colors
 $f3->set('colors', array("pink", "green", "blue"));
 
@@ -36,13 +39,13 @@ $f3->route('GET /', function () {
     echo "<a href='order'>Order a Pet</a>";
 });
 
-$f3->route('GET /order', function() {
+$f3->route('GET|POST /order', function() {
     $view = new Template();
     echo $view->render('views/form1.html');
 });
 
 
-$f3->route('POST /order2', function() {
+$f3->route('GET|POST /order2', function() {
     //var_dump($_POST);
     $_SESSION['animal'] = $_POST['animal'];
     $view = new Template();
