@@ -24,6 +24,9 @@ require("vendor/autoload.php");
 //instantiate F3
 $f3 = Base::instance();
 
+// array of colors
+$f3->set('colors', array("pink", "green", "blue"));
+
 //DEFINE A DEFAULT ROUTE
 $f3->route('GET /', function () {
     //$view = new Template();
