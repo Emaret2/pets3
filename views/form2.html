@@ -14,6 +14,11 @@
         </select>
     </label>
     <input type="Submit" value="Next">
+
+    <check if="{{ isset(@errors['color']) }}">
+        <br>
+        <label> {{ @errors['color'] }}</label>
+    </check>
 </form>
 </body>
 </html>

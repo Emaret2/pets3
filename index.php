@@ -18,7 +18,9 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // require autoload file
-require("vendor/autoload.php");
+require_once("vendor/autoload.php");
+
+require_once('model/validation-functions.php');
 
 
 //instantiate F3
@@ -39,21 +41,46 @@ $f3->route('GET /', function () {
     echo "<a href='order'>Order a Pet</a>";
 });
 
-$f3->route('GET|POST /order', function() {
+$f3->route('GET|POST /order', function($f3) {
+
+    unset($_SESSION['animal']);
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if(isset($_POST['animal']) && validString($_POST['animal'])){
+            $_SESSION['animal'] = $_POST['animal'];
+            $f3->reroute('/order2');
+        } else {
+            $f3 -> set("errors['animal']", "please enter an animal.");
+        }
+
+    }
+
     $view = new Template();
     echo $view->render('views/form1.html');
 });
 
 
-$f3->route('GET|POST /order2', function() {
+$f3->route('GET|POST /order2', function($f3) {
     //var_dump($_POST);
-    $_SESSION['animal'] = $_POST['animal'];
+
+    unset($_SESSION['color']);
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if(isset($_POST['color']) && validColor($_POST['color'])){
+            $_SESSION['color'] = $_POST['color'];
+            $f3->reroute('/results');
+        } else {
+            $f3 -> set("errors['color']", "please enter a valid color.");
+        }
+
+    }
+
     $view = new Template();
     echo $view->render('views/form2.html');
 });
 
-$f3->route('POST /results', function() {
-    $_SESSION['color'] = $_POST['color'];
+$f3->route('GET|POST /results', function() {
+
     $view = new Template();
     echo $view->render('views/results.html');
 });
